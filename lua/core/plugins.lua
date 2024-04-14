@@ -16,6 +16,7 @@ return require('packer').startup(function(use)
         use 'junegunn/vim-easy-align'
         use 'mbbill/undotree'
         use 'tpope/vim-fugitive'
+        use 'tpope/vim-commentary'
 
         -- harpoon
         use "nvim-lua/plenary.nvim"
