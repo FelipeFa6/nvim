@@ -17,6 +17,7 @@ return require('packer').startup(function(use)
         use 'mbbill/undotree'
         use 'tpope/vim-fugitive'
         use 'tpope/vim-commentary'
+        use 'ellisonleao/gruvbox.nvim'
 
         -- harpoon
         use "nvim-lua/plenary.nvim"

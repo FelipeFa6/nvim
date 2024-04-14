@@ -1,20 +1,51 @@
 local lsp = require('lsp-zero')
 local cmp = require('cmp')
+local cmp_lsp = require("cmp_nvim_lsp")
+
+local capabilities = vim.tbl_deep_extend(
+    "force",
+    {},
+    vim.lsp.protocol.make_client_capabilities(),
+    cmp_lsp.default_capabilities()
+)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
     ensure_installed = {
-        'lua_ls',
-        'clangd',
-        'cmake',
-        'rust_analyzer'
+        "lua_ls",
+        "clangd",
+        "cmake",
+        "rust_analyzer",
+        "phpactor"
     },
     handlers = {
-        lsp.default_setup,
-        lua_ls = function()
-            local lua_opts = lsp.nvim_lua_ls()
-            require('lspconfig').lua_ls.setup(lua_opts)
+        ["lua_ls"] = function()
+            local lspconfig = require("lspconfig")
+            lspconfig.lua_ls.setup {
+                capabilities = capabilities,
+                settings = {
+                    Lua = {
+                        runtime = { version = "Lua 5.1" },
+                        diagnostics = {
+                            globals = { "vim", "it", "describe", "before_each", "after_each" },
+                        }
+                    }
+                }
+            }
         end,
+
+        ["rust_analyzer"] = function ()
+            require('lspconfig').rust_analyzer.setup{
+                cmd = { "rustup", "run", "stable", "rust-analyzer", }
+            }
+        end,
+
+        ["phpactor"] = function ()
+            require('lspconfig').phpactor.setup{
+                cmd = { "phpactor", "language-server" },
+                filetypes = { "php", "phtml" }
+            }
+        end
     },
 })
 
@@ -34,4 +65,3 @@ cmp.setup({
         end,
     },
 })
-
