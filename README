@@ -1,0 +1,17 @@
+personal neovim setup
+---
+
+Created following 0 to LSP by ThePrimeagen
+https://www.youtube.com/watch?v=w7i4amO_zaE
+
+dependencies
+---
+- ripgrep   -> text search in folder "<leader>ps"
+- xclip     -> yank to clipboard "<leader>y"
+
+- clangd        -> C lsp
+- cmake         -> make lsp
+- lua_ls        -> lua lsp
+- phpactor      -> php lsp
+- rust-analyzer -> rust lsp
+
