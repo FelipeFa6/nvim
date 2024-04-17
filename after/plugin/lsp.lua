@@ -1,13 +1,4 @@
-local lsp = require('lsp-zero')
 local cmp = require('cmp')
-local cmp_lsp = require("cmp_nvim_lsp")
-
-local capabilities = vim.tbl_deep_extend(
-    "force",
-    {},
-    vim.lsp.protocol.make_client_capabilities(),
-    cmp_lsp.default_capabilities()
-)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
@@ -22,10 +13,9 @@ require('mason-lspconfig').setup({
         ["lua_ls"] = function()
             local lspconfig = require("lspconfig")
             lspconfig.lua_ls.setup {
-                capabilities = capabilities,
                 settings = {
                     Lua = {
-                        runtime = { version = "Lua 5.1" },
+                        runtime = { version = "Lua 5.4" },
                         diagnostics = {
                             globals = { "vim", "it", "describe", "before_each", "after_each" },
                         }
@@ -34,18 +24,11 @@ require('mason-lspconfig').setup({
             }
         end,
 
-        ["rust_analyzer"] = function ()
-            require('lspconfig').rust_analyzer.setup{
-                cmd = { "rustup", "run", "stable", "rust-analyzer", }
-            }
-        end,
+        require('lspconfig').rust_analyzer.setup{
+            cmd = { "rustup", "run", "stable", "rust-analyzer", }
+        },
 
-        ["phpactor"] = function ()
-            require('lspconfig').phpactor.setup{
-                cmd = { "phpactor", "language-server" },
-                filetypes = { "php", "phtml" }
-            }
-        end
+        require('lspconfig').clangd.setup{},
     },
 })
 

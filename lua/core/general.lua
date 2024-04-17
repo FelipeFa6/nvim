@@ -2,6 +2,7 @@
 vim.opt.wrap = false
 vim.opt.number  = true
 vim.opt.relativenumber = true
+vim.opt.scrolloff = 10
 
 -- look
 vim.opt.signcolumn = 'no'
@@ -16,7 +17,7 @@ vim.opt.expandtab   = true
 vim.opt.smartindent = true
 
 -- incremental search only
-vim.opt.hlsearch  = false
+vim.opt.hlsearch  = true
 vim.opt.incsearch = true
 
 -- avoid swapfile
@@ -33,3 +34,15 @@ vim.opt.updatetime = 50
 
 -- netrw
 vim.g.netrw_banner = 0;
+
+
+
+
+
+
+
+
+
+
+
+
