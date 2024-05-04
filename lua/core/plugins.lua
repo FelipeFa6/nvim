@@ -20,8 +20,11 @@ return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
     -- rice 
-    use 'iruzo/matrix-nvim'
     use 'ellisonleao/gruvbox.nvim'
+    use 'nordtheme/vim'
+    use 'vim-airline/vim-airline'
+    use 'vim-airline/vim-airline-themes'
+
 
 
     -- harpoon
@@ -40,20 +43,6 @@ return require('packer').startup(function(use)
 
     -- treesitter
     use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-
-    -- lsp config
-    use {
-        'VonHeikemen/lsp-zero.nvim',
-        branch = 'v3.x',
-        requires = {
-            {'L3MON4D3/LuaSnip'},
-            {'hrsh7th/cmp-nvim-lsp'},
-            {'hrsh7th/nvim-cmp'},
-            {'neovim/nvim-lspconfig'},
-            {'williamboman/mason-lspconfig.nvim'},
-            {'williamboman/mason.nvim'},
-        }
-    }
 
     if packer_bootstrap then
         require('packer').sync()

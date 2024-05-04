@@ -1,3 +1,5 @@
+vim.g.mapleader = " "
+
 -- buffer motion
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
