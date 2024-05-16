@@ -22,8 +22,13 @@ return require('packer').startup(function(use)
     -- rice 
     use 'ellisonleao/gruvbox.nvim'
     use 'nordtheme/vim'
-    use 'vim-airline/vim-airline'
-    use 'vim-airline/vim-airline-themes'
+    use 'catppuccin/nvim'
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
+
 
 
 
