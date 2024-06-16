@@ -32,7 +32,6 @@ return {
             },
             handlers = {
                 function(server_name) -- default handler (optional)
-
                     require("lspconfig")[server_name].setup {
                         capabilities = capabilities
                     }
@@ -44,22 +43,13 @@ return {
                         capabilities = capabilities,
                         settings = {
                             Lua = {
-				    runtime = { version = "Lua 5.1" },
+                                runtime = { version = "Lua 5.1" },
                                 diagnostics = {
                                     globals = { "vim", "it", "describe", "before_each", "after_each" },
                                 }
                             }
                         }
                     }
-                end,
-
-                ["htmx"] = function ()
-                    local lspconfig = require("lspconfig")
-                    lspconfig.htmx.setup({
-                        capabilities = capabilities,
-                        on_attach = on_attach,
-                        filetypes = { "html",  "customfiletype" },
-                    })
                 end
             }
         })
@@ -82,8 +72,8 @@ return {
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' }, -- For luasnip users.
             }, {
-                { name = 'buffer' },
-            })
+                    { name = 'buffer' },
+                })
         })
 
         vim.diagnostic.config({
@@ -99,4 +89,3 @@ return {
         })
     end
 }
-
