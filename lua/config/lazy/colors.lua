@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "off"
+	color = color or "rose-pine"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -9,18 +9,18 @@ end
 
 return {
     {
-        "ntk148v/komau.vim",
-        name = "komau",
-        config = function()
-            vim.cmd("colorscheme komau")
-            ColorMyPencils(name)
-        end
-    },
-    {
         "pbrisbin/vim-colors-off",
         name = "off",
         config = function()
             vim.cmd("colorscheme off")
+            ColorMyPencils(name)
+        end
+    },
+    {
+        "rose-pine/neovim",
+        name = "rose-pine",
+        config = function()
+            vim.cmd("colorscheme rose-pine")
             ColorMyPencils(name)
         end
     },
