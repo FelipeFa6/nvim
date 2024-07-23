@@ -1,5 +1,5 @@
 function ColorMyPencils(color)
-	color = color or "rose-pine"
+	color = color or "accent"
 	vim.cmd.colorscheme(color)
 
 	vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
@@ -9,18 +9,11 @@ end
 
 return {
     {
-        "pbrisbin/vim-colors-off",
-        name = "off",
+        "Alligator/accent.vim",
+        name = "accent",
         config = function()
-            vim.cmd("colorscheme off")
-            ColorMyPencils(name)
-        end
-    },
-    {
-        "rose-pine/neovim",
-        name = "rose-pine",
-        config = function()
-            vim.cmd("colorscheme rose-pine")
+            vim.g.accent_colour = 'green'
+            vim.cmd("colorscheme accent")
             ColorMyPencils(name)
         end
     },

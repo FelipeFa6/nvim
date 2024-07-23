@@ -1,4 +1,4 @@
- vim.g.mapleader = " "
+vim.g.mapleader = " "
 
 -- buffer motion
 vim.keymap.set("n", "<Leader>pv", vim.cmd.Ex)
@@ -32,4 +32,4 @@ vim.keymap.set("n", "<Leader>s", ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left>
 vim.keymap.set("n", "<Leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<Leader>w", ":!./%<CR>")
-
+vim.opt.backspace = "indent,eol,start"
