@@ -3,6 +3,9 @@ vim.opt.wrap = false
 vim.opt.number  = true
 vim.opt.relativenumber = true
 
+-- statusline
+vim.opt.laststatus = 0
+
 -- look
 vim.opt.signcolumn = 'no'
 vim.opt.guicursor = ""
