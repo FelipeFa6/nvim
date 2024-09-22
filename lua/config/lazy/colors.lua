@@ -1,27 +1,18 @@
-function ColorMyPencils(color)
-    color = color or "menguless"
-	vim.cmd.colorscheme(color)
-
-	-- vim.api.nvim_set_hl(0, "Normal", { bg = "none" })
-	-- vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
-
-end
-
 return {
     {
-        "zekzekus/menguless",
-        name = "menguless",
+        "zenbones-theme/zenbones.nvim",
+        dependencies = "rktjmp/lush.nvim",
+        lazy = false,
+        priority = 1000,
+        name = "zenbones",
         config = function()
-            vim.cmd("colorscheme menguless")
-            ColorMyPencils(name)
-        end
-    },
-    {
-        "jaredgorski/fogbell.vim",
-        name = "fogbell",
-        config = function()
-            vim.cmd("colorscheme fogbell")
-            ColorMyPencils(name)
-        end
+            vim.g.zenwritten = {
+                solid_line_nr = true,
+                darken_comments = 45,
+                lightness = 'dim',
+            }
+            vim.cmd("colorscheme zenwritten")
+        end,
     },
 }
+
