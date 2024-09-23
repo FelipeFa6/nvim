@@ -1,17 +1,8 @@
 return {
     {
-        "zenbones-theme/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
-        lazy = false,
-        priority = 1000,
-        name = "zenbones",
+        "RRethy/base16-nvim",
         config = function()
-            vim.g.zenwritten = {
-                solid_line_nr = true,
-                darken_comments = 45,
-                lightness = 'dim',
-            }
-            vim.cmd("colorscheme zenwritten")
+            vim.cmd("colorscheme base16-rose-pine-moon")
         end,
     },
 }
