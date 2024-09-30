@@ -2,6 +2,11 @@
 
 let mapleader = " "
 
+
+" buffer
+nnoremap <silent>[b :bnext <CR>
+nnoremap <silent>]b :bprevious <CR>
+
 nnoremap <Leader>pv :Ex<CR>
 nnoremap <Leader>h :nohl<CR>
 vnoremap J :m '>+1<CR>gv=gv

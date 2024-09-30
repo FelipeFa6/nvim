@@ -14,9 +14,6 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 call plug#end()
 
 " lsp
-let g:asyncomplete_auto_popup = 0
-imap <buffer><C-x><C-o> <Plug>(asyncomplete_force_refresh)
-
 nmap <buffer> K <plug>(lsp-hover)
 nmap <buffer> gd <plug>(lsp-definition)
 nmap <buffer> gs <plug>(lsp-document-symbol-search)
@@ -30,5 +27,15 @@ nnoremap <C-p> :FZF <CR>
 nnoremap <Leader>pf :GFiles<CR>
 nnoremap <Leader>ps :RG<CR>
 
-"undotree
+" undotree
 nnoremap <Leader>u :UndotreeToggle<CR>
+if has("persistent_undo")
+   let target_path = expand('$HOME/.config/nvim/.undodir')
+    if !isdirectory(target_path)
+        call mkdir(target_path, "p", 0700)
+    endif
+
+    let &undodir=target_path
+    set undofile
+endif
+
