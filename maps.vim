@@ -4,8 +4,11 @@ let mapleader = " "
 
 
 " buffer
-nnoremap <silent>[b :bnext <CR>
-nnoremap <silent>]b :bprevious <CR>
+nnoremap [b :bnext <CR>
+nnoremap ]b :bprevious <CR>
+
+nnoremap [t :tabNext <CR>
+nnoremap ]t :tabprevious <CR>
 
 nnoremap <Leader>pv :Ex<CR>
 nnoremap <Leader>h :nohl<CR>
