@@ -2,13 +2,12 @@
 
 let mapleader = " "
 
-
 " buffer
-nnoremap [b :bnext <CR>
-nnoremap ]b :bprevious <CR>
+nnoremap [b :bprevious <CR>
+nnoremap ]b :bnext <CR>
 
-nnoremap [t :tabNext <CR>
-nnoremap ]t :tabprevious <CR>
+nnoremap [t :tabprevious <CR>
+nnoremap ]t :tabNext <CR>
 
 nnoremap <Leader>pv :Ex<CR>
 nnoremap <Leader>h :nohl<CR>

@@ -1,11 +1,13 @@
 " custom
-
 set path+=**
 set wildmenu
 
 set signcolumn=no
 filetype plugin on
-"set omnifunc=asyncomplete#force_refresh()
+
+set number
+set relativenumber
+set cursorline
 
 set tgc
 set nowrap
@@ -17,5 +19,4 @@ set smartindent
 
 " netrw
 let g:netrw_banner=0
-let g:netrw_liststyle=3
 let g:netrw_list_hide=netrw_gitignore#Hide()
