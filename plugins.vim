@@ -1,5 +1,6 @@
 call plug#begin('~/.config/nvim/autoload/plugged')
 
+    Plug 'norcalli/nvim-colorizer.lua'
     Plug 'RRethy/base16-nvim'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/vim-easy-align'
@@ -27,7 +28,6 @@ nmap ga <Plug>(EasyAlign)
 let g:lsp_fold_enabled = 0
 
 function! s:on_lsp_buffer_enabled() abort
-
     setlocal omnifunc=lsp#complete
     setlocal signcolumn=no
     if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
@@ -93,3 +93,7 @@ vim.keymap.set("n", "<leader>5", function() harpoon:list():select(5) end)
 vim.keymap.set("n", "<leader>6", function() harpoon:list():select(6) end)
 EOF
 
+" html hex colorizer
+lua << EOF
+require'colorizer'.setup()
+EOF
