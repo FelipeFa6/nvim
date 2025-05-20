@@ -6,8 +6,9 @@ let mapleader = " "
 nnoremap [b :bprevious <CR>
 nnoremap ]b :bnext <CR>
 
+nnoremap <C-t> :tabnew <CR>
 nnoremap [t :tabprevious <CR>
-nnoremap ]t :tabNext <CR>
+nnoremap ]t :tabnext <CR>
 
 nnoremap <Leader>pv :Ex<CR>
 nnoremap <Leader>h :nohl<CR>

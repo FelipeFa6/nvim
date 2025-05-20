@@ -7,7 +7,6 @@ filetype plugin on
 
 set number
 set relativenumber
-set cursorline
 
 set tgc
 set nowrap
@@ -17,6 +16,11 @@ set shiftwidth=4
 set expandtab
 set smartindent
 
+set mouse=
+set laststatus=1
+
+set fillchars=eob:\ 
+
 " netrw
 let g:netrw_banner=0
-let g:netrw_list_hide=netrw_gitignore#Hide()
+"let g:netrw_list_hide=netrw_gitignore#Hide()
