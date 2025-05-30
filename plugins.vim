@@ -17,9 +17,9 @@ call plug#begin('~/.config/nvim/autoload/plugged')
 
     " additional
     Plug 'ellisonleao/gruvbox.nvim'
-    Plug 'pbrisbin/vim-colors-off'
     Plug 'junegunn/fzf.vim'
     Plug 'junegunn/goyo.vim'
+    Plug 'pbrisbin/vim-colors-off'
 
 call plug#end()
 
@@ -81,3 +81,9 @@ require("nvim-treesitter.configs").setup({
 })
 EOF
 
+" fugitive
+nmap <Leader>gs :Git status .<CR>
+nmap <Leader>gd :Git diff .<CR>
+nmap <Leader>gl :Git log .<CR>
+nmap <Leader>gc :Git commit -m ""<Left>
+nmap <Leader>gv :Gvdiffsplit!<CR>
