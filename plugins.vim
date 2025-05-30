@@ -37,3 +37,10 @@ if has("persistent_undo")
     set undofile
 endif
 
+" fugitive
+nmap <Leader>gs :Git<CR>
+nmap <Leader>gd :Git diff .<CR>
+nmap <Leader>gl :Git log .<CR>
+nmap <Leader>gc :Git commit -m ""<Left>
+nmap <Leader>gv :Gvdiffsplit!<CR>
+
