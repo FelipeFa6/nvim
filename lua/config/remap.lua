@@ -52,3 +52,7 @@ vim.keymap.set('n', '<Leader>x', ':!chmod +x %<CR>', opts)
 -- Run current file
 vim.keymap.set('n', '<Leader>w', ':!./%<CR>', opts)
 
+vim.keymap.set("n", "<leader>ld", function()
+    vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
+end, { desc = "Show line diagnostics" })
+
