@@ -24,7 +24,7 @@ return {
 
         -- word search
         {
-            "<leader>ps>",
+            "<leader>ps",
             function()
                 require("fzf-lua").grep_project()
             end,
