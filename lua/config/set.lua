@@ -1,5 +1,3 @@
--- Colorscheme
-vim.cmd.colorscheme("gruvbox")
 
 -- General settings
 vim.g.netrw_banner     = false
@@ -19,3 +17,8 @@ vim.opt.wildmenu       = true
 vim.wo.linebreak       = true
 vim.wo.list            = false
 vim.wo.wrap            = false
+
+-- Colorscheme
+vim.cmd.colorscheme("zenbones")
+vim.opt.termguicolors = true
+vim.o.background = 'light'
