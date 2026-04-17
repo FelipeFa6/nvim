@@ -10,7 +10,6 @@ vim.opt.shiftwidth     = 4
 vim.opt.smartindent    = true
 vim.opt.softtabstop    = 4
 vim.opt.tabstop        = 4
-vim.opt.tgc            = false
 vim.opt.wildmenu       = true
 
 -- Window-local options
@@ -18,7 +17,9 @@ vim.wo.linebreak       = true
 vim.wo.list            = false
 vim.wo.wrap            = false
 
+-- vim.o.completeopt = "menu,menuone,noselect"
+
 -- Colorscheme
-vim.cmd.colorscheme("zenbones")
-vim.opt.termguicolors = true
-vim.o.background = 'light'
+-- vim.cmd.colorscheme("gruvbox")
+-- vim.opt.termguicolors = true
+-- vim.o.background = 'light'

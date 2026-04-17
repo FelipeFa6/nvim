@@ -2,12 +2,12 @@ return {
     "ibhagwan/fzf-lua",
     keys = {
         {
-            "<C-x><C-f>",
+            "<leader>pf",
             function()
                 require("fzf-lua").complete_path()
             end,
             mode = {
-                "n", "v", "i"
+                "n", "v"
             },
             silent = true
         },
