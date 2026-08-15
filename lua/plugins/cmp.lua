@@ -3,32 +3,22 @@ return {
                 "hrsh7th/nvim-cmp",
                 dependencies = {
                         "hrsh7th/cmp-nvim-lsp",
-                        "L3MON4D3/LuaSnip",
-                        "saadparwaiz1/cmp_luasnip",
-                        "rafamadriz/friendly-snippets",
                 },
                 config = function()
                         local cmp = require("cmp")
-                        require("luasnip.loaders.from_vscode").lazy_load()
-
                         local border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
                         local overrides = { Constructor = "ctor", TypeParameter = "tprm", EnumMember = "emem" }
-
                         local function scroll(delta)
                                 return cmp.mapping(function(fallback)
                                         if cmp.visible() then cmp.scroll_docs(delta) else fallback() end
                                 end, { "i", "s" })
                         end
-
-                        require("luasnip.loaders.from_vscode").lazy_load()
                         cmp.setup({
-                                snippet = { expand = function(a) require("luasnip").lsp_expand(a.body) end },
-
+                                snippet = { expand = function(a) vim.snippet.expand(a.body) end },
                                 window = {
                                         completion = { border = border, scrollbar = false, col_offset = -3, side_padding = 1 },
                                         documentation = { border = border, max_height = 25, max_width = 90 },
                                 },
-
                                 formatting = {
                                         fields = { "kind", "abbr", "menu" },
                                         format = function(entry, item)
@@ -39,19 +29,23 @@ return {
                                                 return item
                                         end,
                                 },
-
                                 experimental = { ghost_text = true },
-
                                 mapping = cmp.mapping.preset.insert({
                                         ["<C-Space>"] = cmp.mapping.complete(),
                                         ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                                        ["<Tab>"] = cmp.mapping.select_next_item(),
-                                        ["<S-Tab>"] = cmp.mapping.select_prev_item(),
+                                        ["<C-n>"] = cmp.mapping.select_next_item(),
+                                        ["<C-p>"] = cmp.mapping.select_prev_item(),
                                         ["<C-d>"] = scroll(4),
                                         ["<C-u>"] = scroll(-4),
                                 }),
-
-                                sources = { { name = "nvim_lsp" }, { name = "luasnip" } },
+                                sources = {
+                                        {
+                                                name = "nvim_lsp",
+                                                entry_filter = function(entry)
+                                                        return entry:get_kind() ~= cmp.lsp.CompletionItemKind.Snippet
+                                                end,
+                                        },
+                                },
                         })
                 end,
         },
