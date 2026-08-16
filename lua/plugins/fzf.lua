@@ -14,7 +14,8 @@ return {
                         map("n", lhs, rhs, { desc = desc })
                 end
 
-                bind("<C-p>", fzf.git_files, "Files")
+                bind("<C-p>", fzf.files, "Files")
+                bind("<leader>pf", fzf.git_files, "Files")
                 bind("<leader>ps", fzf.live_grep, "Search")
                 bind("<leader>pb", fzf.buffers, "Buffers")
 
