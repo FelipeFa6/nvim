@@ -33,7 +33,7 @@ return {
                 vim.g.llama_config = {
                         endpoint_fim  = 'http://127.0.0.1:8001/infill',
                         endpoint_inst = 'http://127.0.0.1:8002/v1/chat/completions',
-                        auto_fim = true,
+                        auto_fim = false,
                         show_info = 2,
                         t_max_prompt_ms  = 1500,
                         t_max_predict_ms = 1500,
@@ -42,7 +42,7 @@ return {
                         n_suffix = 32,
                         ring_n_chunks   = 0,
                         ring_update_ms  = 5000,
-                        keymap_fim_trigger     = '<leader>llf',
+                        keymap_fim_trigger     = '<C-f>',
                         keymap_fim_accept_full = '<Tab>',
                         keymap_fim_accept_line = '<S-Tab>',
                         keymap_inst_trigger  = '<leader>lli',
@@ -59,3 +59,4 @@ return {
                 vim.o.statusline = vim.o.statusline .. ' [%{v:lua.llama_status()}]'
         end,
 }
+

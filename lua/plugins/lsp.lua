@@ -1,71 +1,73 @@
+-- ~/.config/nvim/lua/plugins/lsp.lua
+
 return {
         {
-                "williamboman/mason.nvim",
+                "mason-org/mason.nvim",
+                lazy = false,
                 opts = {},
         },
 
         {
-                "stevearc/conform.nvim",
-                opts = {
-                        formatters_by_ft = {
-                                cpp = { "clang_format" },
-                                c = { "clang_format" },
-                                lua = { "stylua" },
-                                javascript = { "prettier" },
-                                typescript = { "prettier" },
-                                python = { "black" },
-                        },
-                },
-        },
-
-        {
-                "williamboman/mason-lspconfig.nvim",
+                "mason-org/mason-lspconfig.nvim",
+                lazy = false,
                 dependencies = {
-                        "williamboman/mason.nvim",
-                        "neovim/nvim-lspconfig",
+                        "mason-org/mason.nvim",
+                        "neovim/nvim-lspconfig", -- debe estar en runtimepath antes del setup
                 },
                 opts = {
-                        ensure_installed = {},
-                        handlers = {
-                                function(server)
-                                        require("lspconfig")[server].setup({})
-                                end,
+                        -- ruby_lsp NO va aquí: lo instalas con `gem install ruby-lsp`
+                        -- para que respete la version de Ruby del proyecto.
+                        ensure_installed = {
+                                -- "lua_ls",
                         },
+                        -- automatic_enable = true por defecto: habilita solo lo instalado via Mason
                 },
         },
 
         {
                 "neovim/nvim-lspconfig",
+                lazy = false,
                 config = function()
-                        vim.keymap.set("n", "<leader>f", function()
-                                require("conform").format({ lsp_format = "fallback", async = true })
-                        end)
+                        -- Capabilities de nvim-cmp para todos los servidores.
+                        -- Si migras a blink.cmp, borra este bloque completo.
+                        local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
+                        if ok then
+                                vim.lsp.config("*", {
+                                        capabilities = cmp_lsp.default_capabilities(),
+                                })
+                        end
 
-                        vim.api.nvim_create_autocmd("LspAttach", {
-                                callback = function(args)
-                                        local opts = { buffer = args.buf }
+                        -- Servidores instalados fuera de Mason: hay que habilitarlos a mano.
+                        vim.lsp.enable("ruby_lsp")
 
-                                        vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+                        -- Overrides por servidor, si alguna vez los necesitas:
+                        -- vim.lsp.config("ruby_lsp", {
+                                --   init_options = { formatter = "rubocop" },
+                                -- })
 
-                                        -- vim.keymap.set("n", "gd", function()
-                                        --         vim.lsp.buf.definition({
-                                        --                 on_list = function(list)
-                                        --                         if not list.items or #list.items == 0 then
-                                        --                                 vim.notify("No definition found",
-                                        --                                         vim.log.levels.WARN)
-                                        --                                 return
-                                        --                         end
-                                        --                         vim.cmd("vsplit")
-                                        --                         vim.fn.setqflist({}, " ", list)
-                                        --                         vim.cmd("cfirst")
-                                        --                         if #list.items > 1 then
-                                        --                                 vim.cmd("copen")
-                                        --                         end
-                                        --                 end,
-                                        --         })
-                                        -- end, opts)
-                                end,
-                        })
-                end,
-        },
-}
+                                vim.diagnostic.config({
+                                        virtual_text = true,
+                                        severity_sort = true,
+                                        float = { border = "rounded" },
+                                })
+
+                                vim.api.nvim_create_autocmd("LspAttach", {
+                                        desc = "Keymaps de LSP por buffer",
+                                        callback = function(args)
+                                                local function map(lhs, rhs, desc)
+                                                        vim.keymap.set("n", lhs, rhs, { buffer = args.buf, desc = desc })
+                                                end
+
+                                                map("K", vim.lsp.buf.hover, "Hover")
+                                                map("<leader>gd", vim.lsp.buf.definition, "Ir a definicion")
+                                                map("<leader>gr", vim.lsp.buf.references, "Referencias")
+                                                map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+                                                map("<leader>rn", vim.lsp.buf.rename, "Renombrar")
+                                                map("<leader>f", function()
+                                                        vim.lsp.buf.format({ async = true })
+                                                end, "Formatear")
+                                        end,
+                                })
+                        end,
+                },
+        }
