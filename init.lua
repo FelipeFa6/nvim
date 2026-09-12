@@ -5,4 +5,4 @@ require("config.filetypes")
 -- plugin
 require("config.lazy")
 
-vim.cmd.colorscheme('base16-0x96f')
+vim.cmd.colorscheme('base16-one-light')
