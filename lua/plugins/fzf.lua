@@ -14,7 +14,11 @@ return {
                         map("n", lhs, rhs, { desc = desc })
                 end
 
-                bind("<C-p>", fzf.files, "Files")
+                bind("<C-p>", function()
+                        fzf.files({
+                                file_ignore_patterns = { "node_modules/", "%.log$", "dist/" },
+                        })
+                end, "Files")
                 bind("<leader>pf", fzf.git_files, "Files")
                 bind("<leader>ps", fzf.live_grep, "Search")
                 bind("<leader>pb", fzf.buffers, "Buffers")

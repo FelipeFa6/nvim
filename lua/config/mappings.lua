@@ -58,3 +58,4 @@ vim.keymap.set("n", "<leader>ld", function()
     vim.diagnostic.open_float(nil, { focus = false, scope = "cursor" })
 end, { desc = "Show line diagnostics" })
 
+

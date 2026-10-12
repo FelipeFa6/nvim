@@ -12,15 +12,30 @@ return {
                 lazy = false,
                 dependencies = {
                         "mason-org/mason.nvim",
-                        "neovim/nvim-lspconfig", -- debe estar en runtimepath antes del setup
+                        "neovim/nvim-lspconfig",
                 },
                 opts = {
-                        -- ruby_lsp NO va aquí: lo instalas con `gem install ruby-lsp`
-                        -- para que respete la version de Ruby del proyecto.
-                        ensure_installed = {
-                                -- "lua_ls",
+                        ensure_installed = {},
+                        automatic_enable = {
+                                exclude = { "ts_ls" },
                         },
-                        -- automatic_enable = true por defecto: habilita solo lo instalado via Mason
+                },
+        },
+
+        {
+                "stevearc/conform.nvim",
+                event = { "BufWritePre" },
+                cmd = { "ConformInfo" },
+                opts = {
+                        formatters_by_ft = {
+                                tex = { "tex-fmt" },
+                                plaintex = { "tex-fmt" },
+                                bib = { "tex-fmt" },
+                        },
+                        -- format_on_save = {
+                        --         timeout_ms = 500,
+                        --         lsp_format = "fallback",
+                        -- },
                 },
         },
 
@@ -28,8 +43,6 @@ return {
                 "neovim/nvim-lspconfig",
                 lazy = false,
                 config = function()
-                        -- Capabilities de nvim-cmp para todos los servidores.
-                        -- Si migras a blink.cmp, borra este bloque completo.
                         local ok, cmp_lsp = pcall(require, "cmp_nvim_lsp")
                         if ok then
                                 vim.lsp.config("*", {
@@ -37,37 +50,77 @@ return {
                                 })
                         end
 
-                        -- Servidores instalados fuera de Mason: hay que habilitarlos a mano.
-                        vim.lsp.enable("ruby_lsp")
+                        vim.lsp.config("gopls", {})
+                        vim.lsp.enable("gopls")
 
-                        -- Overrides por servidor, si alguna vez los necesitas:
-                        -- vim.lsp.config("ruby_lsp", {
-                                --   init_options = { formatter = "rubocop" },
-                                -- })
+                        vim.lsp.config("tsc", {
+                                cmd = { "tsc", "--lsp", "--stdio" },
+                                filetypes = {
+                                        "javascript",
+                                        "javascriptreact",
+                                        "typescript",
+                                        "typescriptreact",
+                                },
+                                root_markers = {
+                                        "tsconfig.json",
+                                        "jsconfig.json",
+                                        "package.json",
+                                        ".git",
+                                },
+                        })
+                        vim.lsp.enable("tsc")
 
-                                vim.diagnostic.config({
-                                        virtual_text = true,
-                                        severity_sort = true,
-                                        float = { border = "rounded" },
-                                })
+                        vim.lsp.config("ltex_plus", {
+                                settings = {
+                                        ltex = {
+                                                language = "es",
+                                                latex = {
+                                                        commands = {
+                                                                { name = "resumeItem", arguments = { 1 } },
+                                                                { name = "resumeItemListStart", arguments = {} },
+                                                                { name = "resumeItemListEnd", arguments = {} },
+                                                        },
+                                                },
+                                        },
+                                },
+                        })
+                        vim.lsp.enable("ltex_plus")
 
-                                vim.api.nvim_create_autocmd("LspAttach", {
-                                        desc = "Keymaps de LSP por buffer",
-                                        callback = function(args)
-                                                local function map(lhs, rhs, desc)
-                                                        vim.keymap.set("n", lhs, rhs, { buffer = args.buf, desc = desc })
-                                                end
+                        vim.diagnostic.config({
+                                virtual_text = true,
+                                severity_sort = true,
+                                float = { border = "rounded" },
+                        })
 
-                                                map("K", vim.lsp.buf.hover, "Hover")
-                                                map("<leader>gd", vim.lsp.buf.definition, "Ir a definicion")
-                                                map("<leader>gr", vim.lsp.buf.references, "Referencias")
-                                                map("<leader>ca", vim.lsp.buf.code_action, "Code action")
-                                                map("<leader>rn", vim.lsp.buf.rename, "Renombrar")
-                                                map("<leader>f", function()
+                        vim.api.nvim_create_autocmd("LspAttach", {
+                                desc = "Keymaps de LSP por buffer",
+                                callback = function(args)
+                                        local function map(lhs, rhs, desc)
+                                                vim.keymap.set("n", lhs, rhs, { buffer = args.buf, desc = desc })
+                                        end
+
+                                        map("K", vim.lsp.buf.hover, "Hover")
+                                        map("<leader>gd", vim.lsp.buf.definition, "Ir a definicion")
+                                        map("<leader>gr", vim.lsp.buf.references, "Referencias")
+                                        map("<leader>ca", vim.lsp.buf.code_action, "Code action")
+                                        map("<leader>rn", vim.lsp.buf.rename, "Renombrar")
+
+                                        map("<leader>f", function()
+                                                local conform = require("conform")
+                                                local formatters = conform.list_formatters_for_buffer(0)
+
+                                                if #formatters > 0 then
+                                                        conform.format({
+                                                                async = true,
+                                                                lsp_format = "fallback",
+                                                                timeout_ms = 1000,
+                                                        })
+                                                else
                                                         vim.lsp.buf.format({ async = true })
-                                                end, "Formatear")
-                                        end,
-                                })
-                        end,
-                },
-        }
+                                                end
+                                        end, "Formatear")
+                                end,
+                        })
+                end,
+        },
+}
