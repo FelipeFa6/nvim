@@ -6,4 +6,4 @@ require("config.autocmds")
 -- plugin
 require("config.lazy")
 
-vim.cmd.colorscheme('base16-gruvbox-material-dark-medium')
+vim.cmd.colorscheme('base16-windows-95')
